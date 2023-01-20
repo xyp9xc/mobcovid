@@ -1,10 +1,10 @@
 import sys, os
 
-if not 'Informer2020' in sys.path:
-    sys.path += ['Informer2020']
+if not 'mobcovid' in sys.path:
+    sys.path += ['mobcovid']
 
 from utils.tools import dotdict
-from exp.exp_informer import Exp_Informer
+from exp.exp_mobcovid import Exp_Informer
 import torch
 import matplotlib.pyplot as plt
 plt.rcParams["font.size"] = 20
@@ -14,7 +14,7 @@ import numpy as np
 def main_fun(seq_len1, seq_len2, label_len):
     args = dotdict()
 
-    args.model = 'informer' # model of experiment, options: [informer, informerstack, informerlight(TBD)]
+    args.model = 'mobcovid' # model of experiment, options: [informer, informerstack, informerlight(TBD)]
 
     args.data = 'LPD' # Latetime Population Data
     args.root_path = './' # root path of data file
@@ -24,15 +24,13 @@ def main_fun(seq_len1, seq_len2, label_len):
     args.freq = 'd' # freq for time features encoding, options:[s:secondly, t:minutely, h:hourly, d:daily, b:business days, w:weekly, m:monthly], you can also use more detailed freq like 15min or 3h
     args.checkpoints = './informer_checkpoints' # location of model checkpoints
 
-    args.seq_len1 = seq_len1 # input sequence length of latetime population ? 是否多少长度的输入都能映射到 512 x 1
+    args.seq_len1 = seq_len1 # input sequence length of latetime population
     args.seq_len2 = seq_len2 # input sequence length of confirmed cases
     args.label_len = label_len # start token length of Informer decoder
     if args.data_path == "Tokyo.csv":
         args.emergency_in = 2
     elif args.data_path == "Osaka.csv":
         args.emergency_in = 2
-    elif args.data_path == "Aichi.csv":
-        args.emergency_in = 3
     args.pred_len = 1 # prediction sequence length
     # Informer decoder input: concat[start token series(label_len), zero padding series(pred_len)]
 
