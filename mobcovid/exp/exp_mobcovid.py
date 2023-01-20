@@ -19,7 +19,7 @@ warnings.filterwarnings('ignore')
 
 
 
-class Exp_Informer(Exp_Basic):
+class Exp_mobcovid(Exp_Basic):
     def __init__(self, args):
         super(Exp_Informer, self).__init__(args)
     
@@ -28,8 +28,8 @@ class Exp_Informer(Exp_Basic):
             'informer':Informer,
             'informerstack':InformerStack,
         }
-        if self.args.model=='informer' or self.args.model=='informerstack':
-            e_layers = self.args.e_layers if self.args.model=='informer' else self.args.s_layers
+        if self.args.model=='mobcovid':
+            e_layers = self.args.e_layers if self.args.model=='mobcovid' else self.args.s_layers
             model = model_dict[self.args.model](
                 self.args.enc_in,
                 self.args.dec_in,
